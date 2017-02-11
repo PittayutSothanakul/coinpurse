@@ -1,6 +1,8 @@
 package coinpurse;
 
 //TODO import ArrayList and Collections (so you can use Collections.sort())
+import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * A coin purse contains coins. You can insert coins, withdraw money, check the
@@ -17,7 +19,10 @@ public class Purse {
 	 * Capacity is maximum number of coins the purse can hold. Capacity is set
 	 * when the purse is created and cannot be changed.
 	 */
+	ArrayList<Coin> money = new ArrayList<Coin>();
 	private final int capacity;
+	private int balance;
+	private int count;
 
 	/**
 	 * Create a purse with a specified capacity.
@@ -27,6 +32,7 @@ public class Purse {
 	 */
 	public Purse(int capacity) {
 		// TODO initialize the attributes of purse
+		ArrayList<Coin> coins = new ArrayList<Coin>();
 		this.capacity = capacity;
 
 	}
@@ -38,7 +44,7 @@ public class Purse {
 	 * @return the number of coins in the purse
 	 */
 	public int count() {
-		return 0;
+		return money.size();
 	}
 
 	/**
@@ -47,7 +53,14 @@ public class Purse {
 	 * @return the total value of items in the purse.
 	 */
 	public double getBalance() {
-		return 0.0;
+		// for (int i = 0; i < money.size() - 1; i++) {
+		// balance += money.get(i).getValue();
+		// }
+		for (Coin x : money) {
+			double balance = 0;
+			balance += x.getValue();
+		}
+		return balance;
 	}
 
 	/**
@@ -57,7 +70,7 @@ public class Purse {
 	 */
 	// TODO write accessor method for capacity. Use Java naming convention.
 	public int getCapacity() {
-		return 0;
+		return this.capacity;
 	}
 
 	/**
@@ -69,6 +82,8 @@ public class Purse {
 	public boolean isFull() {
 		// TODO complete this method
 		// TODO Don't Repeat Yourself: Avoid writing duplicate code.
+		if (count() >= capacity)
+			return true;
 		return false;
 	}
 
@@ -83,6 +98,11 @@ public class Purse {
 	public boolean insert(Coin coin) {
 		// if the purse is already full then can't insert anything.
 		// TODO complete the insert method
+		if (isFull() || coin.getValue() == 0) {
+			return false;
+		}
+		money.add(coin);
+		Collections.sort(money);
 		return true;
 	}
 
@@ -98,23 +118,30 @@ public class Purse {
 	 */
 	public Coin[] withdraw(double amount) {
 		// TODO don't allow to withdraw amount < 0
+		ArrayList<Coin> temptlist = new ArrayList<Coin>();
 
 		/*
 		 * See lab sheet for outline of a solution, or devise your own solution.
 		 */
 
-		// Did we get the full amount?
-		// This code assumes you decrease amount each time you remove a coin.
-		if (amount > 0) { // failed. Don't change the contents of the purse.
+		if (amount < 0) {
+			return null;
+		}
+		for (int i = money.size() - 1; i >= 0; i--) {
+			if (money.get(i).getValue() <= amount) {
+				temptlist.add(money.get(i));
+				amount -= money.get(i).getValue();
+				money.remove(i);
+			}
+		}
+		if (amount > 0) {
+			money.addAll(temptlist);
 			return null;
 		}
 
-		// Success.
-		// Remove the coins you want to withdraw from purse,
-		// and return them as an array.
-		// Use list.toArray( array[] ) to copy a list into an array.
-		// toArray returns a reference to the array itself.
-		return new Coin[0]; // TODO replace this with real code
+		Coin[] array = new Coin[temptlist.size()];
+		temptlist.toArray(array);
+		return array; 
 	}
 
 	/**

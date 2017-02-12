@@ -37,19 +37,30 @@ public class Coin implements Comparable<Coin> {
 	}
 
 	/**
+	 * Return the value of the coin.
 	 * 
-	 * @return the values of
+	 * @return the value.
 	 */
 	public double getValue() {
 		return this.value;
 	}
 
-	// TODO Write a getCurrency() method and javadoc.
+	/**
+	 * Return the currency of the coin.
+	 * 
+	 * @return the currency.
+	 */
 	public String getCurrency() {
 		return this.currency;
 	}
 
-	// TODO Write an equals(Object) method.
+	/**
+	 * Compare two coins by value and currency
+	 * 
+	 * @param arg
+	 *            is another Object to compare to this one.
+	 * @return true if the value and currncy is same , false if not same
+	 */
 	public boolean equals(Object obj) {
 		if (obj == null)
 			return false;
@@ -61,7 +72,14 @@ public class Coin implements Comparable<Coin> {
 		return false;
 	}
 
-	// TODO Write a compareTo method and implement Comparable.
+	/**
+	 * Order Coins by value so that the smaller value comes first
+	 * 
+	 * @param other
+	 *            is object of Coin that you want to compare with
+	 * @return 1 if this coin has greater value 0 if both have same value -1 if
+	 *         this coin has lesser value
+	 */
 	public int compareTo(Coin other) {
 		if (other == null)
 			return -1;
@@ -71,13 +89,15 @@ public class Coin implements Comparable<Coin> {
 
 	}
 
-	// TODO write a toString() method. See labsheet for what to return.
+	/**
+	 * Return a string representation of this Coin
+	 * 
+	 * @return string that describes the coin
+	 * 
+	 */
 	public String toString() {
-		// return this.value + " " + this.currency;
+
 		return String.format("%.2f %s", value, currency);
 	}
 
-	// TODO Write good Javadoc comments on all methods.
-
 }
-// TODO remove the TODO comments after you complete them! Including this one!

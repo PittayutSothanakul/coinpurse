@@ -1,7 +1,7 @@
 package coinpurse;
 
-//TODO import ArrayList and Collections (so you can use Collections.sort())
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 
 /**
@@ -13,7 +13,6 @@ import java.util.Collections;
  */
 public class Purse {
 	/** Collection of objects in the purse. */
-	// TODO declare a List of Coins named "money".
 
 	/**
 	 * Capacity is maximum number of coins the purse can hold. Capacity is set
@@ -53,13 +52,10 @@ public class Purse {
 	 * @return the total value of items in the purse.
 	 */
 	public double getBalance() {
-		// for (int i = 0; i < money.size() - 1; i++) {
-		// balance += money.get(i).getValue();
-		// }
-		for (Coin x : money) {
-			double balance = 0;
-			balance += x.getValue();
-		}
+		 for (int i = 0; i < money.size() ; i++) {
+		 balance += money.get(i).getValue();
+		 }
+
 		return balance;
 	}
 
@@ -68,7 +64,7 @@ public class Purse {
 	 * 
 	 * @return the capacity
 	 */
-	// TODO write accessor method for capacity. Use Java naming convention.
+
 	public int getCapacity() {
 		return this.capacity;
 	}
@@ -80,8 +76,6 @@ public class Purse {
 	 * @return true if purse is full.
 	 */
 	public boolean isFull() {
-		// TODO complete this method
-		// TODO Don't Repeat Yourself: Avoid writing duplicate code.
 		if (count() >= capacity)
 			return true;
 		return false;
@@ -96,12 +90,12 @@ public class Purse {
 	 * @return true if coin inserted, false if can't insert
 	 */
 	public boolean insert(Coin coin) {
-		// if the purse is already full then can't insert anything.
-		// TODO complete the insert method
+
 		if (isFull() || coin.getValue() == 0) {
 			return false;
 		}
 		money.add(coin);
+		//balance+= coin.getValue();
 		Collections.sort(money);
 		return true;
 	}
@@ -117,12 +111,8 @@ public class Purse {
 	 *         withdraw requested amount.
 	 */
 	public Coin[] withdraw(double amount) {
-		// TODO don't allow to withdraw amount < 0
-		ArrayList<Coin> temptlist = new ArrayList<Coin>();
 
-		/*
-		 * See lab sheet for outline of a solution, or devise your own solution.
-		 */
+		ArrayList<Coin> temptlist = new ArrayList<Coin>();
 
 		if (amount < 0) {
 			return null;
@@ -141,7 +131,7 @@ public class Purse {
 
 		Coin[] array = new Coin[temptlist.size()];
 		temptlist.toArray(array);
-		return array; 
+		return array;
 	}
 
 	/**
@@ -149,10 +139,23 @@ public class Purse {
 	 * return whatever is a useful description.
 	 */
 	public String toString() {
-		// TODO complete this
-		return "you forgot to write Purse.toString()";
+		return this.capacity + " coins with value " + this.balance;
 	}
-
+public static void main(String[] args) {
+	Purse purse = new Purse(3);
+	System.out.println(purse.getBalance());
+	System.out.println(purse.count());
+	System.out.println(purse.isFull());
+	System.out.println(purse.insert(new Coin(5)));
+	System.out.println(purse.insert(new Coin(10)));
+	System.out.println(purse.insert(new Coin(0)));
+	System.out.println(purse.insert(new Coin(1)));
+	System.out.println(purse.insert(new Coin(5)));
+	System.out.println(purse.count());
+	System.out.println(purse.isFull());
+	System.out.println(purse.getBalance());
+	System.out.println(purse.toString());
+	System.out.println(purse.withdraw(12));
+	System.out.println(Arrays.toString(purse.withdraw(11)));
 }
-// TODO remove the TODO comments after you complete them.
-// TODO When you are finished, there should not be any TODO. Including this one.
+}

@@ -52,9 +52,10 @@ public class Purse {
 	 * @return the total value of items in the purse.
 	 */
 	public double getBalance() {
-		 for (int i = 0; i < money.size() ; i++) {
-		 balance += money.get(i).getValue();
-		 }
+		balance = 0;
+		for (int i = 0; i < money.size(); i++) {
+			balance += money.get(i).getValue();
+		}
 
 		return balance;
 	}
@@ -95,7 +96,7 @@ public class Purse {
 			return false;
 		}
 		money.add(coin);
-		//balance+= coin.getValue();
+		// balance+= coin.getValue();
 		Collections.sort(money);
 		return true;
 	}
@@ -112,11 +113,8 @@ public class Purse {
 	 */
 	public Coin[] withdraw(double amount) {
 
-		ArrayList<Coin> temptlist = new ArrayList<Coin>();
+		ArrayList<Coin> temptlist = new ArrayList<>();
 
-		if (amount < 0) {
-			return null;
-		}
 		for (int i = money.size() - 1; i >= 0; i--) {
 			if (money.get(i).getValue() <= amount) {
 				temptlist.add(money.get(i));
@@ -125,13 +123,11 @@ public class Purse {
 			}
 		}
 		if (amount > 0) {
-			money.addAll(temptlist);
 			return null;
 		}
 
 		Coin[] array = new Coin[temptlist.size()];
-		temptlist.toArray(array);
-		return array;
+		return temptlist.toArray(array);
 	}
 
 	/**
@@ -141,21 +137,22 @@ public class Purse {
 	public String toString() {
 		return this.capacity + " coins with value " + this.balance;
 	}
-public static void main(String[] args) {
-	Purse purse = new Purse(3);
-	System.out.println(purse.getBalance());
-	System.out.println(purse.count());
-	System.out.println(purse.isFull());
-	System.out.println(purse.insert(new Coin(5)));
-	System.out.println(purse.insert(new Coin(10)));
-	System.out.println(purse.insert(new Coin(0)));
-	System.out.println(purse.insert(new Coin(1)));
-	System.out.println(purse.insert(new Coin(5)));
-	System.out.println(purse.count());
-	System.out.println(purse.isFull());
-	System.out.println(purse.getBalance());
-	System.out.println(purse.toString());
-	System.out.println(purse.withdraw(12));
-	System.out.println(Arrays.toString(purse.withdraw(11)));
-}
+
+	public static void main(String[] args) {
+		Purse purse = new Purse(3);
+		System.out.println(purse.getBalance());
+		System.out.println(purse.count());
+		System.out.println(purse.isFull());
+		System.out.println(purse.insert(new Coin(5)));
+		System.out.println(purse.insert(new Coin(10)));
+		System.out.println(purse.insert(new Coin(0)));
+		System.out.println(purse.insert(new Coin(1)));
+		System.out.println(purse.insert(new Coin(5)));
+		System.out.println(purse.count());
+		System.out.println(purse.isFull());
+		System.out.println(purse.getBalance());
+		System.out.println(purse.toString());
+		System.out.println(purse.withdraw(12));
+		System.out.println(Arrays.toString(purse.withdraw(11)));
+	}
 }

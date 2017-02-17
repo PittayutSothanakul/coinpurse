@@ -3,6 +3,7 @@ package coinpurse;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 
 /**
  * A coin purse contains coins. You can insert coins, withdraw money, check the
@@ -18,10 +19,9 @@ public class Purse {
 	 * Capacity is maximum number of coins the purse can hold. Capacity is set
 	 * when the purse is created and cannot be changed.
 	 */
-	ArrayList<Coin> money = new ArrayList<Coin>();
+	ArrayList<Valuable> money = new ArrayList<Valuable>();
 	private final int capacity;
 	private int balance;
-	private int count;
 
 	/**
 	 * Create a purse with a specified capacity.
@@ -31,7 +31,7 @@ public class Purse {
 	 */
 	public Purse(int capacity) {
 		// TODO initialize the attributes of purse
-		ArrayList<Coin> coins = new ArrayList<Coin>();
+		ArrayList<Valuable> valuables = new ArrayList<Valuable>();
 		this.capacity = capacity;
 
 	}
@@ -90,14 +90,18 @@ public class Purse {
 	 *            is a Coin object to insert into purse
 	 * @return true if coin inserted, false if can't insert
 	 */
-	public boolean insert(Coin coin) {
+	public boolean insert(Valuable valuable) {
 
-		if (isFull() || coin.getValue() == 0) {
+		if (isFull() || valuable.getValue() == 0) {
 			return false;
 		}
-		money.add(coin);
-		// balance+= coin.getValue();
-		Collections.sort(money);
+		money.add(valuable);
+		Collections.sort(this.money, new Comparator<Valuable>() {
+			@Override
+			public int compare(Valuable o1, Valuable o2) {
+				return o1.getCurrency().compareTo(o2.getCurrency());
+			}
+		});
 		return true;
 	}
 
@@ -111,9 +115,9 @@ public class Purse {
 	 * @return array of Coin objects for money withdrawn, or null if cannot
 	 *         withdraw requested amount.
 	 */
-	public Coin[] withdraw(double amount) {
+	public Valuable[] withdraw(double amount) {
 
-		ArrayList<Coin> temptlist = new ArrayList<>();
+		ArrayList<Valuable> temptlist = new ArrayList<>();
 
 		for (int i = money.size() - 1; i >= 0; i--) {
 			if (money.get(i).getValue() <= amount) {
@@ -126,7 +130,7 @@ public class Purse {
 			return null;
 		}
 
-		Coin[] array = new Coin[temptlist.size()];
+		Valuable[] array = new Valuable[temptlist.size()];
 		return temptlist.toArray(array);
 	}
 

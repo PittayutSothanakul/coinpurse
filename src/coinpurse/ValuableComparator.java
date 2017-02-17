@@ -8,13 +8,13 @@ import java.util.Comparator;
  * @author Pittayut Sothanakul
  */
 
-public class CoinComparator implements Comparator<Coin> {
+public class ValuableComparator implements Comparator<Valuable> {
 	/**
 	 * Comparator instance and use it to sort the coins.
 	 * @return order coins by currency.
 	 */
 	@Override
-	public int compare(Coin o1, Coin o2) {
+	public int compare(Valuable o1, Valuable o2) {
 
 		return o1.getCurrency().compareTo(o2.getCurrency());
 	}

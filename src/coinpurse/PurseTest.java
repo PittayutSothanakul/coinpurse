@@ -94,7 +94,7 @@ public class PurseTest {
 			Coin coin = new Coin(value);
 			assertTrue(purse.insert(coin));
 			assertEquals(value, purse.getBalance(), TOL);
-			Coin[] result = purse.withdraw(value);
+			Valuable[] result = purse.withdraw(value);
 			assertTrue(result != null);
 			assertEquals(1, result.length);
 			assertSame(coin, result[0]);
@@ -118,10 +118,10 @@ public class PurseTest {
 		}
 		assertEquals(amount1 + amount2, purse.getBalance(), TOL);
 		assertEquals(10, purse.count());
-		Coin[] wd1 = purse.withdraw(amount1);
+		Valuable[] wd1 = purse.withdraw(amount1);
 		assertEquals(amount1, sumValue(wd1), TOL);
 		assertEquals(amount2, purse.getBalance(), TOL);
-		Coin[] wd2 = purse.withdraw(amount2);
+		Valuable[] wd2 = purse.withdraw(amount2);
 		assertEquals(0, purse.getBalance(), TOL);
 	}
 
@@ -144,11 +144,11 @@ public class PurseTest {
 	 *            array of coins
 	 * @return sum of values of the coins
 	 */
-	private double sumValue(Coin[] coins) {
-		if (coins == null)
+	private double sumValue(Valuable[] valuables) {
+		if (valuables == null)
 			return 0;
 		double sum = 0;
-		for (Coin c : coins)
+		for (Valuable c : valuables)
 			if (c != null)
 				sum += c.getValue();
 		return sum;

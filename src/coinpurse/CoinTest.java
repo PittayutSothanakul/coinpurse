@@ -12,9 +12,9 @@ public class CoinTest {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		Coin one = new Coin(1);
-		Coin five = new Coin(5);
-		Coin malay = new Coin(0.5, "Ringgit");
+		AbstractValuable one = new Coin(1);
+		AbstractValuable five = new Coin(5);
+		AbstractValuable malay = new Coin(0.5, "Ringgit");
 		System.out.println(one.toString());
 		System.out.println(one.compareTo(five));
 		System.out.println(five.compareTo(one));

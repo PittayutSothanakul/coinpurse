@@ -6,9 +6,7 @@ package coinpurse;
  * @author Pittayut Sothanakul
  *
  */
-public class BankNote implements Valuable {
-	private double value;
-	private String currency;
+public class BankNote extends AbstractValuable {
 	private long serialNumber;
 	static long nextSerialNumber = 1000000;
 
@@ -19,7 +17,7 @@ public class BankNote implements Valuable {
 	 *            is the value of banknote.
 	 */
 	public BankNote(double value) {
-		this.value = value;
+		super(value, DEFAULT_CURRENCY);
 
 	}
 
@@ -32,32 +30,9 @@ public class BankNote implements Valuable {
 	 *            is the currency of banknote.
 	 */
 	public BankNote(double value, String currency) {
-		this.value = value;
-		this.currency = currency;
+		super(value, currency);
 		this.serialNumber = BankNote.nextSerialNumber;
 		BankNote.nextSerialNumber++;
-	}
-
-	/**
-	 * Return the value of the banknote.
-	 * 
-	 * @return the value.
-	 */
-	@Override
-	public double getValue() {
-
-		return this.value;
-	}
-
-	/**
-	 * Return the currency of the banknote.
-	 * 
-	 * @return the currency.
-	 */
-	@Override
-	public String getCurrency() {
-
-		return this.currency;
 	}
 
 	/**
@@ -78,26 +53,6 @@ public class BankNote implements Valuable {
 	public void setSerialNumber(long serialNumber) {
 		this.serialNumber = serialNumber;
 
-	}
-
-	/**
-	 * Compare two coins by value and currency. They are equal if the value and
-	 * currency matches.
-	 * 
-	 * @param arg
-	 *            is another Object to compare to this one.
-	 * @return true if the value is same and the currency is same, false
-	 *         otherwise.
-	 */
-	public boolean equals(Object obj) {
-		if (obj == null)
-			return false;
-		if (obj.getClass() != this.getClass())
-			return false;
-		BankNote other = (BankNote) obj;
-		if (this.value == other.value && this.currency == other.currency)
-			return true;
-		return false;
 	}
 
 	/**

@@ -1,5 +1,6 @@
 package coinpurse;
 
+import java.awt.RenderingHints.Key;
 import java.util.*;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
@@ -57,18 +58,41 @@ public class CoinUtil {
 	 * Hint: this is easy if you sort the coins by currency first. :-)
 	 */
 	public static void sumByCurrency(List<Valuable> valuables) {
-		sortByCurrency(valuables);
-		String currency = valuables.get(0).getCurrency();
-		double sum = 0.0;
-		for (Valuable cur : valuables) {
-			if (cur.getCurrency().equals(currency)) {
-				sum += cur.getValue();
+		// sortByCurrency(valuables);
+		// String currency = valuables.get(0).getCurrency();
+		// double sum = 0.0;
+		// for (Valuable cur : valuables) {
+		// if (cur.getCurrency().equals(currency)) {
+		// sum += cur.getValue();
+		// } else {
+		// System.out.printf("%.2f %s\n", sum, currency);
+		// sum = 0;
+		// sum += cur.getValue();
+		// currency = cur.getCurrency();
+		// }
+		// }
+
+		// Map<String, Double> map = new HashMap<>();
+		// for (Valuable c : valuables) {
+		// map.put(c.getCurrency(), map.getOrDefault(c.getCurrency(), 0.0) +
+		// c.getValue());
+		// }
+		// for (String currency : map.keySet()) {
+		// System.out.println(map.get(currency) + " " + currency);
+		// }
+
+		Map<String, Double> map = new HashMap<>();
+		for (Valuable c : valuables) {
+			if (map.containsKey(c.getCurrency())) {
+				map.put(c.getCurrency(), map.get(c.getCurrency()) + c.getValue());
+
 			} else {
-				System.out.printf("%.2f %s\n", sum, currency);
-				sum = 0;
-				sum += cur.getValue();
-				currency = cur.getCurrency();
+				map.put(c.getCurrency(), c.getValue());
 			}
+		}
+
+		for (String cu : map.keySet()) {
+			System.out.println(cu + " " + map.get(cu));
 		}
 	}
 

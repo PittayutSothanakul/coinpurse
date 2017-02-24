@@ -99,7 +99,8 @@ public class Purse {
 		Collections.sort(this.money, new Comparator<Valuable>() {
 			@Override
 			public int compare(Valuable o1, Valuable o2) {
-				return o1.getCurrency().compareTo(o2.getCurrency());
+				//return o1.getCurrency().compareTo(o2.getCurrency());
+				return Double.compare(o1.getValue(), o2.getValue());
 			}
 		});
 		return true;

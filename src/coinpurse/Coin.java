@@ -33,7 +33,7 @@ public class Coin implements Comparable<Coin> , Valuable{
 	 */
 	public Coin(double value, String currency) {
 		this.value = value;
-		this.currency = DEFAULT_CURRENCY;
+		this.currency = currency;
 	}
 
 	/**

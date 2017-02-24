@@ -68,6 +68,7 @@ public class ConsoleDialog {
 				System.out.printf("Deposit %s... ", bankNote.toString());
 				boolean ok = purse.insert(bankNote);
 				System.out.println((ok ? "ok" : "FAILED"));
+
 			} else {
 				Coin coin = new Coin(value);
 				System.out.printf("Deposit %s... ", coin.toString());

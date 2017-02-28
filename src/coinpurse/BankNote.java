@@ -8,7 +8,7 @@ package coinpurse;
  */
 public class BankNote extends AbstractValuable {
 	private long serialNumber;
-	static long nextSerialNumber = 1000000;
+	private static long nextSerialNumber = 1000000;
 
 	/**
 	 * A banknote with given value using the default currency.
@@ -16,9 +16,8 @@ public class BankNote extends AbstractValuable {
 	 * @param value
 	 *            is the value of banknote.
 	 */
-	public BankNote(double value) {
-		super(value, DEFAULT_CURRENCY);
-
+	public BankNote(double value, String currency) {
+		super(value, currency);
 	}
 
 	/**
@@ -29,10 +28,9 @@ public class BankNote extends AbstractValuable {
 	 * @param currency
 	 *            is the currency of banknote.
 	 */
-	public BankNote(double value, String currency) {
+	public BankNote(double value, String currency, long serialNumber) {
 		super(value, currency);
-		this.serialNumber = BankNote.nextSerialNumber;
-		BankNote.nextSerialNumber++;
+		this.serialNumber = serialNumber;
 	}
 
 	/**
@@ -63,6 +61,6 @@ public class BankNote extends AbstractValuable {
 	 */
 	public String toString() {
 
-		return String.format("%.2f %s", value, currency);
+		return String.format("%.0f %s note [%d]",this.value,this.currency,this.serialNumber);
 	}
 }

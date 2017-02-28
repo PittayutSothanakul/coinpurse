@@ -6,7 +6,7 @@ package coinpurse;
  * @author your name
  */
 public class Main {
-
+	private static int CAPACITY = 10;
     /**
      * Configure and start the application.
      * @param args not used

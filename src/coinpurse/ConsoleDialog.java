@@ -6,6 +6,8 @@ import java.util.Scanner;
  * User Interface for the Coin Purse. This class provides simple interactive
  * dialog for inserting and removing money to/from the purse, and displaying the
  * balance.
+ * 
+ * @author Pittayut Sothanakul
  */
 public class ConsoleDialog {
 	// default currency for this dialog
@@ -14,6 +16,8 @@ public class ConsoleDialog {
 	private static Scanner console = new Scanner(System.in);
 
 	private Purse purse;
+
+	private MoneyFactory factory;
 
 	/**
 	 * Initialize a new Purse dialog.
@@ -61,21 +65,17 @@ public class ConsoleDialog {
 		// parse input line into numbers
 		Scanner scanline = new Scanner(inline);
 		while (scanline.hasNextDouble()) {
+			Valuable type;
 			double value = scanline.nextDouble();
-
-			if (value >= 20) {
-				BankNote bankNote = new BankNote(value);
-				System.out.printf("Deposit %s... ", bankNote.toString());
-				boolean ok = purse.insert(bankNote);
-				System.out.println((ok ? "ok" : "FAILED"));
-
-			} else {
-				Coin coin = new Coin(value);
-				System.out.printf("Deposit %s... ", coin.toString());
-				boolean ok = purse.insert(coin);
-				System.out.println((ok ? "ok" : "FAILED"));
+			try {
+				type = factory.getInstance().createMoney(value);
+			} catch (IllegalArgumentException e) {
+				System.out.println("Sorry, " + value + " is not a valid amount.");
+				continue;
 			}
-
+			System.out.printf("Deposit %s... ", type.toString());
+			boolean ok = purse.insert(type);
+			System.out.println((ok ? "ok" : "FAILED"));
 		}
 		if (scanline.hasNext())
 			System.out.println("Invalid input: " + scanline.next());
